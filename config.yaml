@@ -1,0 +1,41 @@
+paths:
+  video_input: input/video
+  photo_input: input/photos   # optional; missing or empty folder = video only
+  audio_input: input/audio
+  output: output
+  output_name: wakajki_2026_2  # file name only, always .mp4
+global:
+  orientation: landscape       # auto | landscape | portrait; applies to videos and photos
+  mismatch: crop          # videos/photos in the other orientation: crop | blur_pad | skip
+  video_to_photo_ratio: random  # random | proportional | "2:5" = videos:photos shots, each 1-9; keep the quotes
+audio:
+  beats_per_bar: auto     # auto | 3 | 4
+  cut_interval: 2         # 1..3; 1 = most frequent cuts, 3 = least frequent
+  min_segment_s: 1        # int >= 0; 0 = no minimum
+  max_segment_s: null     # int | null
+  fixed_time: "0:00"      # "0:00" = whole file | "1:32-2:15" | "1:32-" (to the end); keep the quotes
+  fade_in_s: 3            # music fade-in from silence, seconds; 0 = off
+  fade_out_s: 3           # music fade-out to silence, seconds; 0 = off
+video:
+  allow_segment_reusage: true   # true = reuse already used footage (and photos) when the sources run out
+  allow_segment_extension: true # true = stretch a segment with slow motion (down to 0.5x) when no long enough range is left
+  fps: 30
+  remove_audio: true
+  source_audio_gain: 0.25
+  chronologic: true      # true = videos and photos ordered by the date (else number) in the file names
+photos:
+  time_shown_min: 1       # seconds a photo stays on screen, min..max; a longer beat slot is split into several photos
+  time_shown_max: 3
+motion:
+  step_s: 0.4
+  window_s: 3
+  min_score: auto         # auto | float
+planning:
+  allow_speedup: true
+  max_speedup: 2.0
+  seed: null
+render:
+  encoder: libx264        # libx264 | h264_nvenc
+  crf: 20
+  preset: veryfast
+  workers: auto           # auto = max(1, min(cpu_count // 2, 6))

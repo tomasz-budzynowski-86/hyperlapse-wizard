@@ -1,0 +1,22 @@
+# Transitions: short effects played at the start of the shot that follows a cut.
+# Hard cuts only: set `enabled: false` or every effect below to false.
+
+enabled: true         # true | false; master switch for all effects
+probability: 1        # 0..1; chance that a cut gets an effect (0 = never, 1 = every allowed cut)
+min_gap_cuts: 1       # int >= 0; plain cuts required between two effects (0 = effects may be back to back)
+
+effects:              # true = the effect may be picked at random; false = never used
+  flash: true         # white flash that fades out
+  zoom_punch: true    # quick zoom-in that settles back to normal size
+  dip_to_black: true  # fade in from black
+  shake: true         # camera shake that fades out
+  rgb_split: true     # red/blue colour channels shifted apart, then merging
+
+# All params are optional (defaults in the comments).
+# duration_s (every effect): length in seconds, > 0; capped at 30% of the shot, so short shots get shorter effects.
+params:
+  flash: { duration_s: 0.30, strength: 0.8 }          # strength: 0..1, brightness boost at the start (default 0.8); duration_s default 0.12
+  zoom_punch: { duration_s: 0.3, scale: 1.30 }        # scale: >= 1, starting zoom (1.15 = 15% closer; default 1.15); duration_s default 0.2
+  dip_to_black: { duration_s: 0.30 }                  # duration_s default 0.15
+  shake: { duration_s: 0.8, amplitude_px: 40 }        # amplitude_px: > 0, max shift in pixels (default 12); duration_s default 0.2
+  rgb_split: { duration_s: 0.30, shift_px: 15 }       # shift_px: > 0, channel offset in pixels (default 8); duration_s default 0.15
